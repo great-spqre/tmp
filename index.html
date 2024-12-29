@@ -68,7 +68,7 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            fetch('https://kino.mail.ru/ajax/kinoafisha/?rubric_id=1&region_id=32&date=2024-12-29&0&1&subway_id&genre_id&time=0&time=97200')
+            fetch('https://kino.mail.ru/ajax/kinoafisha/?rubric_id=1&region_id=32&date=2024-12-29&0&1&subway_id&genre_id&time=0&time=97200', {mode: 'no-cors'})
             .then(response => response.json())
             .then(data => {
                 const moviesContainer = document.getElementById('movies-container');
