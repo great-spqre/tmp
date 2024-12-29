@@ -5,6 +5,7 @@
     <title>Расписание Фильмов</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -67,49 +68,57 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            fetch('https://kino.mail.ru/ajax/kinoafisha/?rubric_id=1&region_id=32&date=2024-12-29&0&1&subway_id&genre_id&time=0&time=97200')
-                .then(response => response.json())
-                .then(data => {
-                    const moviesContainer = document.getElementById('movies-container');
-                    data.data.events.forEach(event => {
-                        const movieElement = document.createElement('div');
-                        movieElement.classList.add('movie');
-                        
-                        const movieImage = document.createElement('img');
-                        movieImage.src = event.image_url;
-                        movieImage.alt = `Постер фильма ${event.name}`;
-                        movieElement.appendChild(movieImage);
-                        
-                        const movieInfo = document.createElement('div');
-                        movieInfo.classList.add('movie-info');
-                        
-                        const movieTitle = document.createElement('h2');
-                        movieTitle.textContent = event.name;
-                        movieInfo.appendChild(movieTitle);
-                        
-                        const movieRating = document.createElement('p');
-                        movieRating.innerHTML = `<strong>Рейтинг IMDb:</strong> ${event.imdb_rating}`;
-                        movieInfo.appendChild(movieRating);
-                        
-                        const movieAge = document.createElement('p');
-                        movieAge.innerHTML = `<strong>Возрастное ограничение:</strong> ${event.age_restrict}+`;
-                        movieInfo.appendChild(movieAge);
-                        
-                        const movieLink = document.createElement('a');
-                        movieLink.href = event.url;
-                        movieLink.textContent = 'Подробнее';
-                        movieInfo.appendChild(movieLink);
-                        
-                        const trailerLink = document.createElement('a');
-                        trailerLink.href = event.trailer_url;
-                        trailerLink.textContent = ' | Трейлер';
-                        movieInfo.appendChild(trailerLink);
-                        
-                        movieElement.appendChild(movieInfo);
-                        moviesContainer.appendChild(movieElement);
-                    });
-                })
-                .catch(error => console.error('Ошибка:', error));
+            fetch('https://kino.mail.ru/ajax/kinoafisha/?rubric_id=1&region_id=32&date=2024-12-29&0&1&subway_id&genre_id&time=0&time=97200', {
+                headers: {
+                    'sec-ch-ua': '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
+                    'sec-ch-ua-mobile': '?0',
+                    'sec-ch-ua-platform': '"Windows"',
+                    'upgrade-insecure-requests': '1',
+                    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const moviesContainer = document.getElementById('movies-container');
+                data.data.events.forEach(event => {
+                    const movieElement = document.createElement('div');
+                    movieElement.classList.add('movie');
+                    
+                    const movieImage = document.createElement('img');
+                    movieImage.src = event.image_url;
+                    movieImage.alt = `Постер фильма ${event.name}`;
+                    movieElement.appendChild(movieImage);
+                    
+                    const movieInfo = document.createElement('div');
+                    movieInfo.classList.add('movie-info');
+                    
+                    const movieTitle = document.createElement('h2');
+                    movieTitle.textContent = event.name;
+                    movieInfo.appendChild(movieTitle);
+                    
+                    const movieRating = document.createElement('p');
+                    movieRating.innerHTML = `<strong>Рейтинг IMDb:</strong> ${event.imdb_rating}`;
+                    movieInfo.appendChild(movieRating);
+                    
+                    const movieAge = document.createElement('p');
+                    movieAge.innerHTML = `<strong>Возрастное ограничение:</strong> ${event.age_restrict}+`;
+                    movieInfo.appendChild(movieAge);
+                    
+                    const movieLink = document.createElement('a');
+                    movieLink.href = event.url;
+                    movieLink.textContent = 'Подробнее';
+                    movieInfo.appendChild(movieLink);
+                    
+                    const trailerLink = document.createElement('a');
+                    trailerLink.href = event.trailer_url;
+                    trailerLink.textContent = ' | Трейлер';
+                    movieInfo.appendChild(trailerLink);
+                    
+                    movieElement.appendChild(movieInfo);
+                    moviesContainer.appendChild(movieElement);
+                });
+            })
+            .catch(error => console.error('Ошибка:', error));
         });
     </script>
 </body>
